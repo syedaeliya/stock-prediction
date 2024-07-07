@@ -25,7 +25,7 @@ Before running the project, ensure you have the following software installed:
 
 Install the necessary Python libraries using the following command:
 
-```
+```bash
 pip install pandas numpy scikit-learn tensorflow flask matplotlib
 ```
 
@@ -54,7 +54,7 @@ project_root/
 
 Clone the repository to your local machine:
 
-```
+```bash
 git clone https://github.com/yourusername/stock-price-prediction.git
 cd stock-price-prediction
 ```
@@ -63,7 +63,7 @@ cd stock-price-prediction
 
 Install the required Python libraries:
 
-```
+```bash
 pip install -r requirements.txt
 ```
 
@@ -75,7 +75,7 @@ Place your historical stock market data in the `data/` directory. Ensure the dat
 
 Run the following command to train the LSTM model on your data:
 
-```
+```bash
 python train.py
 ```
 
@@ -85,7 +85,7 @@ This will preprocess the data, train the model, and save the trained model to th
 
 Start the Flask web application using the following command:
 
-```
+```bash
 python app.py
 ```
 
@@ -141,5 +141,3 @@ If you have any questions or feedback, please contact:
 
 - Syed Aeliya M. Taqvi (syedaeliya.taqvi@gmail.com)
 ```
-
-You can save this content to a file named `README.md` in your project directory.
