@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stock Price Prediction</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      background-image: url("https://img.freepik.com/free-vector/gradient-stock-market-concept_23-2149166910.jpg?t=st=1719222629~exp=1719226229~hmac=10aed43d77bcec3c0bf6f8205d13aebab8b37fc27af677c7fd9218ab408e8e40&w=1380");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center;
+    }
+
+    .container {
+      max-width: 100%;
+      margin: auto;
+      text-align: center;
+      margin-top: 0px;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.8);
+      border-radius: 10px;
+      position: relative;
+      z-index: 1;
+      /* Ensure content is above blurred background */
+    }
+
+    .upload-container {
+      max-width: 20%;
+      margin: auto;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    img {
+      max-width: 100%;
+      margin-top: 5px;
+    }
+
+    form {
+      margin-top: 20px;
+    }
+
+    h3 {
+      margin-bottom: 20px;
+    }
+
+    .spinner-border {
+      display: none;
+      /* Hide spinner by default */
+      margin-top: 20px;
+      border-style: dashed;
+      border-width: 5px;
+    }
+
+    .spinner-lg {
+      width: 5rem;
+      /* Custom width for large spinner */
+      height: 5rem;
+      /* Custom height for large spinner */
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h3>Stock Price Prediction</h3>
+    <form action="/upload" method="post" enctype="multipart/form-data" class="mb-3 upload-container" id="uploadForm">
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="customFile" name="file" accept=".csv" required
+          onchange="updateFileName(this)" />
+        <label class="custom-file-label" for="customFile" id="fileLabel">Choose file...</label>
+      </div>
+      <button type="submit" class="btn btn-success mt-3 w-100" id="uploadBtn">
+        Generate Prediction
+      </button>
+    </form>
+    <hr />
+    {% if error %}
+    <div class="alert alert-danger" role="alert">{{ error }}</div>
+    {% endif %}
+    <div class="spinner-border text-success spinner-lg" role="status" id="spinner">
+      <span class="sr-only">Loading...</span>
+    </div>
+    {% if plot %}
+    <div id="plotContent result-container" class="mt-0">
+      <div class="mt-3 float-right">
+        <span>Accuracy: {{ accuracy }}</span> &nbsp;
+        <button class="btn btn-primary" onclick="location.reload()">
+          Wanna Predict Again? 
+        </button>
+      </div>
+      <img src="{{ plot }}" class="img-fluid border-dark border rounded" alt="Stock Price Prediction Plot" />
+      <p class="m-0">Uploaded File: {{ file_name }}</p>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- Bootstrap JS and dependencies (optional) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    // Show spinner on form submit
+    document
+      .getElementById("uploadForm")
+      .addEventListener("submit", function () {
+        document.getElementById("spinner").style.display = "inline-block";
+        document.getElementById("uploadBtn").setAttribute("disabled", true); // Disable upload button
+      });
+
+    // Update file name in label when file selected
+    function updateFileName(input) {
+      var fileName = input.files[0].name;
+      document.getElementById("fileLabel").innerText = fileName;
+    }
+
+    // Function to hide spinner and show plot content
+    function hideSpinner() {
+      document.getElementById("spinner").style.display = "none";
+      document.getElementById("plotContent").style.display = "block";
+      document.getElementById("uploadBtn").removeAttribute("disabled"); // Re-enable upload button
+    }
+  </script>
+
+  {% if plot %}
+  <script>
+    // Call the hideSpinner function when plot is loaded
+    window.onload = function () {
+      hideSpinner();
+    };
+  </script>
+  {% endif %}
+</body>
+
+</html>
