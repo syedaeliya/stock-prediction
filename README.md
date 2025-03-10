@@ -131,10 +131,6 @@ This directory contains static files like CSS and JavaScript for styling the web
 
 If you would like to contribute to this project, please fork the repository and submit a pull request.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## Contact
 
 If you have any questions or feedback, please contact:
